@@ -20,3 +20,9 @@ pip install fastapi==0.78.0 "uvicorn[standard]==0.17.6"
 ```
 
 uvicorn app.main:app --reload
+
+fastapi
+uvicorn[standard]
+aiosqlite
+pydantic
+pydantic-settings
