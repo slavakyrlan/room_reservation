@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.core.config import settings
-from app.api.meeting_room import router
+from app.api.routers import main_router
+
 
 
 app = FastAPI(
@@ -8,4 +9,4 @@ app = FastAPI(
     description=settings.app_description,
     redoc_url=None
 )
-app.include_router(router)
+app.include_router(main_router)

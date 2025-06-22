@@ -29,7 +29,6 @@ class ReservationUpdate(ReservationBase):
         return values
 
 
-# Этот класс наследуем от ReservationUpdate с валидаторами.
 class ReservationCreate(ReservationUpdate):
     meetingroom_id: int
 
@@ -44,4 +43,4 @@ class ReservationDB(ReservationBase):
     meetingroom_id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
