@@ -22,17 +22,22 @@ class CRUDReservation(CRUDBase):
         reservation_id: Optional[int] = None,
         session: AsyncSession,
     ) -> list[Reservation]:
-        reservations = await session.execute(
-            select(Reservation).where(
-                Reservation.meetingroom_id == meetingroom_id,
-                and_(
-                    from_reserve <= Reservation.to_reserve,
-                    to_reserve >= Reservation.from_reserve
-                )
+        select_stmt = select(Reservation).where(
+            Reservation.meetingroom_id == meetingroom_id,
+            and_(
+                from_reserve <= Reservation.to_reserve,
+                to_reserve >= Reservation.from_reserve
             )
         )
+        # Если передан id бронирования
+        if reservation_id is not None:
+            select_stmt = select_stmt.where(
+                # id искомых объектов не равны id обновляемого объекта.
+                Reservation.id != reservation_id
+            )
+        reservations = await session.execute(select_stmt)
         reservations = reservations.scalars().all()
         return reservations
-
+    
 
 reservation_crud = CRUDReservation(Reservation)

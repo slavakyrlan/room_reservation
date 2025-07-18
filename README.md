@@ -26,3 +26,9 @@ uvicorn[standard]
 aiosqlite
 pydantic
 pydantic-settings
+
+
+{
+  "from_reserve": "2025-07-19T15:35",
+  "to_reserve": "2025-07-19T15:39"
+}
