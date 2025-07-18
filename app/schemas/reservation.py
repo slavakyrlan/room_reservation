@@ -1,9 +1,10 @@
-from datetime import datetime
-
+from datetime import datetime, timedelta
 from pydantic import BaseModel, root_validator, validator, Extra, Field
 
-FROM_TIME = '2022-04-24T11:00'
-TO_TIME = '2022-04-24T12:00'
+FROM_TIME = (datetime.now() + timedelta(minutes=10)).isoformat(
+    timespec="minutes"
+)
+TO_TIME = (datetime.now() + timedelta(hours=10)).isoformat(timespec="minutes")
 
 
 class ReservationBase(BaseModel):
