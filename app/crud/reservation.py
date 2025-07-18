@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Optional
 from sqlalchemy import and_, between, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from datetime import datetime
 
 reservation_crud = CRUDBase(Reservation)
 
@@ -38,6 +39,21 @@ class CRUDReservation(CRUDBase):
         reservations = await session.execute(select_stmt)
         reservations = reservations.scalars().all()
         return reservations
-    
+
+    async def get_future_reservations_for_room(
+            self,
+            room_id: int,
+            session: AsyncSession,
+    ) -> list:
+        reservations = await session.execute(
+            select(Reservation).where(
+                Reservation.meetingroom_id == room_id,
+                # время конца бронирования больше текущего времени.
+                Reservation.to_reserve > datetime.now()
+            )
+        )
+        reservations = reservations.scalars().all()
+        return reservations
+
 
 reservation_crud = CRUDReservation(Reservation)
