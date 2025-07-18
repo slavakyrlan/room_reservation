@@ -1,11 +1,14 @@
 from datetime import datetime
 
-from pydantic import BaseModel, root_validator, validator, Extra
+from pydantic import BaseModel, root_validator, validator, Extra, Field
+
+FROM_TIME = '2022-04-24T11:00'
+TO_TIME = '2022-04-24T12:00'
 
 
 class ReservationBase(BaseModel):
-    from_reserve: datetime
-    to_reserve: datetime
+    from_reserve: datetime = Field(..., example=FROM_TIME)
+    to_reserve: datetime = Field(..., example=TO_TIME)
 
     class Config:
         """Запрещает пользователю передавать параметры не описанные в схеме."""
