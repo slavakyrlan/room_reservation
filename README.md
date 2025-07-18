@@ -18,6 +18,8 @@ room_reservation/
 ```bash
 pip install fastapi==0.78.0 "uvicorn[standard]==0.17.6" 
 ```
+pip install "fastapi-users[sqlalchemy]==10.0.6"
+pip install "fastapi-users-db-sqlalchemy<5.0.0"
 
 uvicorn app.main:app --reload
 
