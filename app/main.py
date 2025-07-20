@@ -16,3 +16,8 @@ app.include_router(main_router)
 @app.on_event('startup')
 async def startup():
     await create_first_superuser()
+
+
+@app.on_event('shutdown')
+async def shutdown_event():
+    print("Приложение остановлено")
